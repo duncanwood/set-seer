@@ -9,6 +9,37 @@ from torchvision import datasets
 from ultralytics.data.dataset import YOLODataset
 
 
+SET_CARDS_MASTER = [
+    '1-green-empty-diamond', '1-green-empty-oval', '1-green-empty-squiggle', 
+    '1-green-solid-diamond', '1-green-solid-oval', '1-green-solid-squiggle', 
+    '1-green-striped-diamond', '1-green-striped-oval', '1-green-striped-squiggle', 
+    '1-purple-empty-diamond', '1-purple-empty-oval', '1-purple-empty-squiggle', 
+    '1-purple-solid-diamond', '1-purple-solid-oval', '1-purple-solid-squiggle', 
+    '1-purple-striped-diamond', '1-purple-striped-oval', '1-purple-striped-squiggle', 
+    '1-red-empty-diamond', '1-red-empty-oval', '1-red-empty-squiggle', 
+    '1-red-solid-diamond', '1-red-solid-oval', '1-red-solid-squiggle', 
+    '1-red-striped-diamond', '1-red-striped-oval', '1-red-striped-squiggle', 
+    '2-green-empty-diamond', '2-green-empty-oval', '2-green-empty-squiggle', 
+    '2-green-solid-diamond', '2-green-solid-oval', '2-green-solid-squiggle', 
+    '2-green-striped-diamond', '2-green-striped-oval', '2-green-striped-squiggle', 
+    '2-purple-empty-diamond', '2-purple-empty-oval', '2-purple-empty-squiggle', 
+    '2-purple-solid-diamond', '2-purple-solid-oval', '2-purple-solid-squiggle', 
+    '2-purple-striped-diamond', '2-purple-striped-oval', '2-purple-striped-squiggle', 
+    '2-red-empty-diamond', '2-red-empty-oval', '2-red-empty-squiggle', 
+    '2-red-solid-diamond', '2-red-solid-oval', '2-red-solid-squiggle', 
+    '2-red-striped-diamond', '2-red-striped-oval', '2-red-striped-squiggle', 
+    '3-green-empty-diamond', '3-green-empty-oval', '3-green-empty-squiggle', 
+    '3-green-solid-diamond', '3-green-solid-oval', '3-green-solid-squiggle', 
+    '3-green-striped-diamond', '3-green-striped-oval', '3-green-striped-squiggle', 
+    '3-purple-empty-diamond', '3-purple-empty-oval', '3-purple-empty-squiggle', 
+    '3-purple-solid-diamond', '3-purple-solid-oval', '3-purple-solid-squiggle', 
+    '3-purple-striped-diamond', '3-purple-striped-oval', '3-purple-striped-squiggle', 
+    '3-red-empty-diamond', '3-red-empty-oval', '3-red-empty-squiggle', 
+    '3-red-solid-diamond', '3-red-solid-oval', '3-red-solid-squiggle', 
+    '3-red-striped-diamond', '3-red-striped-oval', '3-red-striped-squiggle'
+]
+
+
 class SetSeerDataset(Dataset):
     """
     Custom Dataset for Set Seer that generates images on the fly using
@@ -29,33 +60,32 @@ class SetSeerDataset(Dataset):
         local_samples = self.card_dataset.samples
         local_class_to_idx = self.card_dataset.class_to_idx # {'folder': local_idx}
         
-        if master_classes is not None:
-            # master_classes is a list of strings [class0, class1, ...]
-            # normalized
-            master_class_to_idx = {self.normalize_name(name): i for i, name in enumerate(master_classes)}
-            self.class_to_idx = {name: i for i, name in enumerate(master_classes)}
+        # Default to master classes if none provided
+        if master_classes is None:
+            master_classes = SET_CARDS_MASTER
             
-            # Build local to master mapping
-            local_to_master = {}
-            for local_name, local_idx in local_class_to_idx.items():
-                norm_name = self.normalize_name(local_name)
-                if norm_name in master_class_to_idx:
-                    local_to_master[local_idx] = master_class_to_idx[norm_name]
-                else:
-                    print(f"Warning: Local folder '{local_name}' (normalized: '{norm_name}') not found in master classes.")
-            
-            # Remap samples
-            self.card_samples = []
-            for path, local_idx in local_samples:
-                if local_idx in local_to_master:
-                    self.card_samples.append((path, local_to_master[local_idx]))
-            
-            if not self.card_samples:
-                 raise ValueError(f"No valid cards found in {card_dir} that match master classes.")
-        else:
-            # Fallback to local indexing (not recommended for sync)
-            self.card_samples = local_samples
-            self.class_to_idx = local_class_to_idx
+        # master_classes is a list of strings [class0, class1, ...]
+        # normalized
+        master_class_to_idx = {self.normalize_name(name): i for i, name in enumerate(master_classes)}
+        self.class_to_idx = {name: i for i, name in enumerate(master_classes)}
+        
+        # Build local to master mapping
+        local_to_master = {}
+        for local_name, local_idx in local_class_to_idx.items():
+            norm_name = self.normalize_name(local_name)
+            if norm_name in master_class_to_idx:
+                local_to_master[local_idx] = master_class_to_idx[norm_name]
+            else:
+                print(f"Warning: Local folder '{local_name}' (normalized: '{norm_name}') not found in master classes.")
+        
+        # Remap samples
+        self.card_samples = []
+        for path, local_idx in local_samples:
+            if local_idx in local_to_master:
+                self.card_samples.append((path, local_to_master[local_idx]))
+        
+        if not self.card_samples:
+                raise ValueError(f"No valid cards found in {card_dir} that match master classes.")
         
         # Load background paths
         if not os.path.isdir(dtd_dir):

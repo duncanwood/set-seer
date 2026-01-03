@@ -1,5 +1,5 @@
 import os
-from set_seer_dataset import SetSeerDataset
+from set_seer_dataset import SetSeerDataset, SET_CARDS_MASTER
 
 def main():
     train_dir = "model-dev/data/train"
@@ -11,7 +11,7 @@ def main():
         return
 
     # 1. Get master classes from train
-    master_classes = sorted([d for d in os.listdir(train_dir) if os.path.isdir(os.path.join(train_dir, d))])
+    master_classes = SET_CARDS_MASTER
     print(f"Master classes loaded: {len(master_classes)}")
 
     # 2. Setup datasets

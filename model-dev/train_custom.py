@@ -5,7 +5,7 @@ import glob
 from ultralytics import YOLO
 from ultralytics.models.yolo.detect import DetectionTrainer, DetectionValidator
 from ultralytics.data.utils import check_det_dataset
-from set_seer_dataset import SetSeerDataset
+from set_seer_dataset import SetSeerDataset, SET_CARDS_MASTER
 
 class SetSeerValidator(DetectionValidator):
     def build_dataset(self, img_path, mode="val", batch=None):
@@ -27,8 +27,8 @@ class SetSeerValidator(DetectionValidator):
         if dtd_dir is None:
              raise FileNotFoundError("Could not find dtd/images directory.")
              
-        # Extract master classes from trainer config
-        master_classes = list(self.data['names'].values())
+        # Use hardcoded master classes
+        master_classes = SET_CARDS_MASTER
 
         # Validation epoch size
         epoch_size = 100 
@@ -83,8 +83,8 @@ class SetSeerTrainer(DetectionTrainer):
         if dtd_dir is None:
             raise FileNotFoundError("Could not find dtd/images directory. Please ensure it exists.")
 
-        # Extract master classes from trainer config
-        master_classes = list(self.data['names'].values())
+        # Use hardcoded master classes
+        master_classes = SET_CARDS_MASTER
 
         # Determine epoch size
         epoch_size = 1000 if mode == 'train' else 100
@@ -126,9 +126,9 @@ class SetSeerTrainer(DetectionTrainer):
     # but let's try default first. 
     # v8 default dataloader uses a custom collate that handles the batch dicts.
 
-def create_data_yaml(output_path="model-dev/custom_data.yaml"):
+def create_data_yaml(output_path="model-dev/set_seer_data.yaml"):
     """
-    scans model-dev/data/train to find classes and writes a data.yaml
+    Writes a data.yaml using the hardcoded SET_CARDS_MASTER.
     """
     train_dir = "model-dev/data/train"
     val_dir = "model-dev/data/val"
@@ -138,11 +138,9 @@ def create_data_yaml(output_path="model-dev/custom_data.yaml"):
         train_dir = "data/train"
         val_dir = "data/val"
     
-    classes = sorted([d for d in os.listdir(train_dir) if os.path.isdir(os.path.join(train_dir, d))])
-    # We use the raw folder names for the yaml 'names' dict to keep it simple,
-    # but SetSeerDataset will normalize them internally when matching.
-    # However, to be extra safe, let's make sure they are unique when normalized.
-     
+    # Use hardcoded master list as the source of truth for names
+    classes = SET_CARDS_MASTER
+    
     # Create the config dict
     data_config = {
         'path': os.path.abspath("."), # Base path
