@@ -27,6 +27,9 @@ class SetSeerValidator(DetectionValidator):
         if dtd_dir is None:
              raise FileNotFoundError("Could not find dtd/images directory.")
              
+        # Extract master classes from trainer config
+        master_classes = list(self.data['names'].values())
+
         # Validation epoch size
         epoch_size = 100 
 
@@ -40,7 +43,8 @@ class SetSeerValidator(DetectionValidator):
             epoch_size=epoch_size,
             min_cards=1,
             max_cards=15,
-            bgr=bgr
+            bgr=bgr,
+            master_classes=master_classes
         )
 
 class SetSeerTrainer(DetectionTrainer):
@@ -79,15 +83,18 @@ class SetSeerTrainer(DetectionTrainer):
         if dtd_dir is None:
             raise FileNotFoundError("Could not find dtd/images directory. Please ensure it exists.")
 
+        # Extract master classes from trainer config
+        master_classes = list(self.data['names'].values())
+
         # Determine epoch size
-        # For training, we want a lot of variations. 
-        # For val, maybe less?
         epoch_size = 1000 if mode == 'train' else 100
         
-        # Determine strict card limits for training vs maybe simpler for val?
-        # We'll keep them consistent.
+        # Consistent card limits
         min_cards = 1
-        max_cards = 20 
+        max_cards = 15 
+
+        # Respect bgr flag from args
+        bgr = getattr(self.args, 'bgr', False)
 
         dataset = SetSeerDataset(
             card_dir=img_path,
@@ -95,7 +102,8 @@ class SetSeerTrainer(DetectionTrainer):
             img_size=self.args.imgsz,
             epoch_size=epoch_size,
             min_cards=min_cards,
-            max_cards=15
+            max_cards=max_cards,
+            bgr=bgr
         )
         
         return dataset
@@ -131,7 +139,10 @@ def create_data_yaml(output_path="model-dev/custom_data.yaml"):
         val_dir = "data/val"
     
     classes = sorted([d for d in os.listdir(train_dir) if os.path.isdir(os.path.join(train_dir, d))])
-    
+    # We use the raw folder names for the yaml 'names' dict to keep it simple,
+    # but SetSeerDataset will normalize them internally when matching.
+    # However, to be extra safe, let's make sure they are unique when normalized.
+     
     # Create the config dict
     data_config = {
         'path': os.path.abspath("."), # Base path

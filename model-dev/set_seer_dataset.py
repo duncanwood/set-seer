@@ -15,7 +15,7 @@ class SetSeerDataset(Dataset):
     backgrounds and card assets.
     """
     def __init__(self, card_dir, dtd_dir, img_size=640, epoch_size=1000, 
-                 min_cards=1, max_cards=20, bgr=False):
+                 min_cards=1, max_cards=20, bgr=False, master_classes=None):
         self.img_size = img_size
         self.epoch_size = epoch_size
         self.min_cards = min_cards
@@ -26,8 +26,36 @@ class SetSeerDataset(Dataset):
         if not os.path.isdir(card_dir):
             raise FileNotFoundError(f"Card directory not found at {card_dir}")
         self.card_dataset = datasets.ImageFolder(card_dir)
-        self.card_samples = self.card_dataset.samples
-        self.class_to_idx = self.card_dataset.class_to_idx
+        local_samples = self.card_dataset.samples
+        local_class_to_idx = self.card_dataset.class_to_idx # {'folder': local_idx}
+        
+        if master_classes is not None:
+            # master_classes is a list of strings [class0, class1, ...]
+            # normalized
+            master_class_to_idx = {self.normalize_name(name): i for i, name in enumerate(master_classes)}
+            self.class_to_idx = {name: i for i, name in enumerate(master_classes)}
+            
+            # Build local to master mapping
+            local_to_master = {}
+            for local_name, local_idx in local_class_to_idx.items():
+                norm_name = self.normalize_name(local_name)
+                if norm_name in master_class_to_idx:
+                    local_to_master[local_idx] = master_class_to_idx[norm_name]
+                else:
+                    print(f"Warning: Local folder '{local_name}' (normalized: '{norm_name}') not found in master classes.")
+            
+            # Remap samples
+            self.card_samples = []
+            for path, local_idx in local_samples:
+                if local_idx in local_to_master:
+                    self.card_samples.append((path, local_to_master[local_idx]))
+            
+            if not self.card_samples:
+                 raise ValueError(f"No valid cards found in {card_dir} that match master classes.")
+        else:
+            # Fallback to local indexing (not recommended for sync)
+            self.card_samples = local_samples
+            self.class_to_idx = local_class_to_idx
         
         # Load background paths
         if not os.path.isdir(dtd_dir):
@@ -41,6 +69,19 @@ class SetSeerDataset(Dataset):
         self.max_occlusion = 0.15
         self.max_occlusion = 0.15
         self.max_attempts = 100
+
+    @staticmethod
+    def normalize_name(name):
+        """Normalize folder names: lowercase, rstrip 's', replace hyphens/underscores."""
+        n = name.lower().strip()
+        n = n.replace('_', '-')
+        # Remove trailing 's' only if it seems to be plural (diamonds -> diamond)
+        # But be careful with words that naturally end in s if any.
+        # For Set cards, the properties are: empty, solid, striped, diamond, oval, squiggle.
+        # None of these naturally end in 's' except plural.
+        if n.endswith('s'):
+            n = n[:-1]
+        return n
 
     @staticmethod
     def collate_fn(batch):
@@ -87,6 +128,7 @@ class SetSeerDataset(Dataset):
         return self.epoch_size
 
     def __getitem__(self, index):
+        
         # 1. Select and Resize Background (Load as RGB)
         bg_path = random.choice(self.bg_paths)
         background = cv2.imread(bg_path)
