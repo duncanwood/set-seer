@@ -1,0 +1,22 @@
+{
+  "name": "Set Seer",
+  "short_name": "Set Seer",
+  "description": "Real-time Set card detection and solver — runs entirely in your browser.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a0a0f",
+  "theme_color": "#00FF88",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
