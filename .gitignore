@@ -1,3 +1,4 @@
 model-dev/data/*
 model-dev/debug_runs/*
 set-seer-runs/*
+.DS_Store
