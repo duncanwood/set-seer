@@ -1,5 +1,7 @@
 # Set Seer
 
+https://duncanwood.github.io/set-seer/
+
 <!-- predictable-intro-start -->
 In my family, there was one game to rule them all: **Set**. 
 
