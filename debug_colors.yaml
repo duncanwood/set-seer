@@ -1,4 +1,0 @@
-train: .
-val: .
-nc: 1
-names: ['red']
