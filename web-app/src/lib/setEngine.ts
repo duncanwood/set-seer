@@ -123,8 +123,10 @@ export function findSets(cards: SetCard[]): SetResult[] {
           if (foundSetIds.has(setSignature)) continue;
 
           foundSetIds.add(setSignature);
-          // Stable color index based on hash (prevents swapping)
-          const setHash = setSignature.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+          // Stable color index based on feature hash (prevents cycling as IDs change)
+          const setFeatures = [cardSignature(a), cardSignature(b), cardSignature(c)].sort().join('|');
+          const setHash = setFeatures.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+
           results.push({
             id: `set-${results.length}`,
             cards: [a, b, c],
