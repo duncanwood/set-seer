@@ -162,18 +162,26 @@ if __name__ == "__main__":
     parser.add_argument("--batch", type=int, default=16, help="Batch size")
     parser.add_argument("--imgsz", type=int, default=640, help="Image size")
     parser.add_argument("--bgr", action="store_true", help="Use BGR output (fixes inversion if plotting assumes BGR)")
+    parser.add_argument("--resume-weights", nargs='?', const="set-seer-runs/custom_aug_run32/weights/best-2.pt",
+                        default=None, help="Resume from weights file (default: set-seer-runs/custom_aug_run32/weights/best-2.pt if flag present)")
     cli_args = parser.parse_args()
 
     # 1. Generate Config
     yaml_path = create_data_yaml("model-dev/set_seer_data.yaml")
     print(f"Created config at {yaml_path}")
     
-    # 2. Initialize Trainer
-    model = YOLO("yolov8n.pt") 
+    # 2. Determine which weights to use
+    base_weights = "yolov8n.pt"
+    if cli_args.resume_weights:
+        base_weights = cli_args.resume_weights
+        print(f"Resuming from weights: {base_weights}")
+    
+    # 3. Initialize Trainer
+    model = YOLO(base_weights) 
     
     # Args for training
     args = dict(
-        model="yolov8n.pt",
+        model=base_weights,
         data=yaml_path,
         epochs=cli_args.epochs, 
         imgsz=cli_args.imgsz,

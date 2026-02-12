@@ -1,0 +1,19 @@
+{
+  "MLModelVersionStringKey" : "8.3.179",
+  "MLModelDescriptionKey" : "Ultralytics best model trained on yolo_dataset_single_class\/data.yaml",
+  "MLModelCreatorDefinedKey" : {
+    "stride" : "32",
+    "Confidence threshold" : "0.25",
+    "IoU threshold" : "0.7",
+    "channels" : "3",
+    "task" : "detect",
+    "docs" : "https:\/\/docs.ultralytics.com",
+    "date" : "2025-08-16T14:58:25.091539",
+    "imgsz" : "[512, 512]",
+    "batch" : "1",
+    "args" : "{'batch': 1, 'half': False, 'int8': False, 'nms': True}",
+    "names" : "{0: 'card'}"
+  },
+  "MLModelAuthorKey" : "Ultralytics",
+  "MLModelLicenseKey" : "AGPL-3.0 License (https:\/\/ultralytics.com\/license)"
+}

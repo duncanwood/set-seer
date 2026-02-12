@@ -1,0 +1,567 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		AE54424F2E4D30C800AFAEAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE5442392E4D30C700AFAEAC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE5442402E4D30C700AFAEAC;
+			remoteInfo = SetSeer;
+		};
+		AE5442592E4D30C800AFAEAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE5442392E4D30C700AFAEAC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE5442402E4D30C700AFAEAC;
+			remoteInfo = SetSeer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AE5442412E4D30C700AFAEAC /* SetSeer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetSeer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE54424E2E4D30C800AFAEAC /* SetSeerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SetSeerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE5442582E4D30C800AFAEAC /* SetSeerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SetSeerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		AE5442432E4D30C700AFAEAC /* SetSeer */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SetSeer;
+			sourceTree = "<group>";
+		};
+		AE5442512E4D30C800AFAEAC /* SetSeerTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SetSeerTests;
+			sourceTree = "<group>";
+		};
+		AE54425B2E4D30C800AFAEAC /* SetSeerUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SetSeerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE54423E2E4D30C700AFAEAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE54424B2E4D30C800AFAEAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE5442552E4D30C800AFAEAC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE5442382E4D30C700AFAEAC = {
+			isa = PBXGroup;
+			children = (
+				AE5442432E4D30C700AFAEAC /* SetSeer */,
+				AE5442512E4D30C800AFAEAC /* SetSeerTests */,
+				AE54425B2E4D30C800AFAEAC /* SetSeerUITests */,
+				AE5442422E4D30C700AFAEAC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE5442422E4D30C700AFAEAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE5442412E4D30C700AFAEAC /* SetSeer.app */,
+				AE54424E2E4D30C800AFAEAC /* SetSeerTests.xctest */,
+				AE5442582E4D30C800AFAEAC /* SetSeerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE5442402E4D30C700AFAEAC /* SetSeer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE5442622E4D30C800AFAEAC /* Build configuration list for PBXNativeTarget "SetSeer" */;
+			buildPhases = (
+				AE54423D2E4D30C700AFAEAC /* Sources */,
+				AE54423E2E4D30C700AFAEAC /* Frameworks */,
+				AE54423F2E4D30C700AFAEAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AE5442432E4D30C700AFAEAC /* SetSeer */,
+			);
+			name = SetSeer;
+			packageProductDependencies = (
+			);
+			productName = SetSeer;
+			productReference = AE5442412E4D30C700AFAEAC /* SetSeer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AE54424D2E4D30C800AFAEAC /* SetSeerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE5442652E4D30C800AFAEAC /* Build configuration list for PBXNativeTarget "SetSeerTests" */;
+			buildPhases = (
+				AE54424A2E4D30C800AFAEAC /* Sources */,
+				AE54424B2E4D30C800AFAEAC /* Frameworks */,
+				AE54424C2E4D30C800AFAEAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE5442502E4D30C800AFAEAC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AE5442512E4D30C800AFAEAC /* SetSeerTests */,
+			);
+			name = SetSeerTests;
+			packageProductDependencies = (
+			);
+			productName = SetSeerTests;
+			productReference = AE54424E2E4D30C800AFAEAC /* SetSeerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AE5442572E4D30C800AFAEAC /* SetSeerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE5442682E4D30C800AFAEAC /* Build configuration list for PBXNativeTarget "SetSeerUITests" */;
+			buildPhases = (
+				AE5442542E4D30C800AFAEAC /* Sources */,
+				AE5442552E4D30C800AFAEAC /* Frameworks */,
+				AE5442562E4D30C800AFAEAC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE54425A2E4D30C800AFAEAC /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				AE54425B2E4D30C800AFAEAC /* SetSeerUITests */,
+			);
+			name = SetSeerUITests;
+			packageProductDependencies = (
+			);
+			productName = SetSeerUITests;
+			productReference = AE5442582E4D30C800AFAEAC /* SetSeerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE5442392E4D30C700AFAEAC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					AE5442402E4D30C700AFAEAC = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					AE54424D2E4D30C800AFAEAC = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = AE5442402E4D30C700AFAEAC;
+					};
+					AE5442572E4D30C800AFAEAC = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = AE5442402E4D30C700AFAEAC;
+					};
+				};
+			};
+			buildConfigurationList = AE54423C2E4D30C700AFAEAC /* Build configuration list for PBXProject "SetSeer" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AE5442382E4D30C700AFAEAC;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = AE5442422E4D30C700AFAEAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE5442402E4D30C700AFAEAC /* SetSeer */,
+				AE54424D2E4D30C800AFAEAC /* SetSeerTests */,
+				AE5442572E4D30C800AFAEAC /* SetSeerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE54423F2E4D30C700AFAEAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE54424C2E4D30C800AFAEAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE5442562E4D30C800AFAEAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE54423D2E4D30C700AFAEAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE54424A2E4D30C800AFAEAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE5442542E4D30C800AFAEAC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE5442502E4D30C800AFAEAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE5442402E4D30C700AFAEAC /* SetSeer */;
+			targetProxy = AE54424F2E4D30C800AFAEAC /* PBXContainerItemProxy */;
+		};
+		AE54425A2E4D30C800AFAEAC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE5442402E4D30C700AFAEAC /* SetSeer */;
+			targetProxy = AE5442592E4D30C800AFAEAC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		AE5442602E4D30C800AFAEAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AE5442612E4D30C800AFAEAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AE5442632E4D30C800AFAEAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses camera to detect game cards.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = Debugging;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DuncanWood.SetSeer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AE5442642E4D30C800AFAEAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses camera to detect game cards.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = Debugging;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DuncanWood.SetSeer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AE5442662E4D30C800AFAEAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DuncanWood.SetSeerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SetSeer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SetSeer";
+			};
+			name = Debug;
+		};
+		AE5442672E4D30C800AFAEAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DuncanWood.SetSeerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SetSeer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SetSeer";
+			};
+			name = Release;
+		};
+		AE5442692E4D30C800AFAEAC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DuncanWood.SetSeerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SetSeer;
+			};
+			name = Debug;
+		};
+		AE54426A2E4D30C800AFAEAC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7Y552SWPG2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DuncanWood.SetSeerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SetSeer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE54423C2E4D30C700AFAEAC /* Build configuration list for PBXProject "SetSeer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE5442602E4D30C800AFAEAC /* Debug */,
+				AE5442612E4D30C800AFAEAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE5442622E4D30C800AFAEAC /* Build configuration list for PBXNativeTarget "SetSeer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE5442632E4D30C800AFAEAC /* Debug */,
+				AE5442642E4D30C800AFAEAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE5442652E4D30C800AFAEAC /* Build configuration list for PBXNativeTarget "SetSeerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE5442662E4D30C800AFAEAC /* Debug */,
+				AE5442672E4D30C800AFAEAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE5442682E4D30C800AFAEAC /* Build configuration list for PBXNativeTarget "SetSeerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE5442692E4D30C800AFAEAC /* Debug */,
+				AE54426A2E4D30C800AFAEAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE5442392E4D30C700AFAEAC /* Project object */;
+}

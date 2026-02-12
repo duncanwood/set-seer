@@ -294,7 +294,7 @@ class SetSeerDataset(Dataset):
         rows, cols = card_img.shape[:2]
         bg_w, bg_h = self.img_size, self.img_size
         
-        scale_factor = random.uniform(0.04, 0.35)
+        scale_factor = random.uniform(0.04, 0.25)
         new_w = int(bg_w * scale_factor)
         new_h = int(new_w / (cols / rows)) if cols > 0 and rows > 0 else 0
         if new_w == 0 or new_h == 0: return None, None
@@ -303,27 +303,46 @@ class SetSeerDataset(Dataset):
         rows, cols = card_img.shape[:2]
         
         angle = random.uniform(-180, 180)
-        M_rot = cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
+        M_rot_2x3 = cv2.getRotationMatrix2D((cols / 2, rows / 2), angle, 1)
+        M_rot = np.vstack([M_rot_2x3, [0, 0, 1]])
         
+        # 2. Perspective points
         pts1 = np.float32([[0, 0], [cols, 0], [0, rows], [cols, rows]])
-        px_shift = 0.1 * cols
+        px_shift = 0.45 * cols
         pts2 = np.float32([
-            [random.uniform(-px_shift, px_shift), random.uniform(-px_shift, px_shift)],
+            # [random.uniform(-px_shift, px_shift), random.uniform(-px_shift, px_shift)],
+            [0,0],
             [cols - random.uniform(-px_shift, px_shift), random.uniform(-px_shift, px_shift)],
             [random.uniform(-px_shift, px_shift), rows - random.uniform(-px_shift, px_shift)],
             [cols - random.uniform(-px_shift, px_shift), rows - random.uniform(-px_shift, px_shift)]
         ])
         M_persp = cv2.getPerspectiveTransform(pts1, pts2)
         
-        cos, sin = np.abs(M_rot[0, 0]), np.abs(M_rot[0, 1])
-        new_cols = int((rows * sin) + (cols * cos))
-        new_rows = int((rows * cos) + (cols * sin))
+        # 3. Combine transformations
+        M_total = M_persp @ M_rot
         
-        M_rot[0, 2] += (new_cols / 2) - (cols / 2)
-        M_rot[1, 2] += (new_rows / 2) - (rows / 2)
+        # 4. Calculate bounding box of transformed corners
+        corners = np.float32([[0, 0], [cols, 0], [cols, rows], [0, rows]]).reshape(-1, 1, 2)
+        transformed_corners = cv2.perspectiveTransform(corners, M_total)
         
-        rotated_card = cv2.warpAffine(card_img, M_rot, (new_cols, new_rows))
-        transformed_card = cv2.warpPerspective(rotated_card, M_persp, (new_cols, new_rows))
+        min_x = np.min(transformed_corners[:, :, 0])
+        min_y = np.min(transformed_corners[:, :, 1])
+        max_x = np.max(transformed_corners[:, :, 0])
+        max_y = np.max(transformed_corners[:, :, 1])
+        
+        new_w = int(np.ceil(max_x - min_x))
+        new_h = int(np.ceil(max_y - min_y))
+        
+        # 5. Add translation to transformation to keep in view
+        M_translate = np.float32([
+            [1, 0, -min_x],
+            [0, 1, -min_y],
+            [0, 0, 1]
+        ])
+        M_final = M_translate @ M_total
+        
+        # 6. Apply final transformation
+        transformed_card = cv2.warpPerspective(card_img, M_final, (new_w, new_h))
         
         if card_img.shape[2] == 4:
             mask = card_img[:, :, 3]
@@ -331,8 +350,7 @@ class SetSeerDataset(Dataset):
             gray_card = cv2.cvtColor(card_img, cv2.COLOR_BGR2GRAY)
             _, mask = cv2.threshold(gray_card, 1, 255, cv2.THRESH_BINARY)
             
-        rotated_mask = cv2.warpAffine(mask, M_rot, (new_cols, new_rows))
-        transformed_mask = cv2.warpPerspective(rotated_mask, M_persp, (new_cols, new_rows))
+        transformed_mask = cv2.warpPerspective(mask, M_final, (new_w, new_h))
         
         kernel = np.ones((3, 3), np.uint8)
         eroded_mask = cv2.erode(transformed_mask, kernel, iterations=1)

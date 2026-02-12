@@ -1,0 +1,28 @@
+{
+  "name": "web-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "build:gh-pages": "NEXT_PUBLIC_BASE_PATH=/set-seer next build",
+    "deploy": "npm run build:gh-pages && gh-pages -d out -t"
+  },
+  "dependencies": {
+    "next": "16.1.6",
+    "onnxruntime-web": "^1.18.0",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-webcam": "^7.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "copy-webpack-plugin": "^13.0.1",
+    "gh-pages": "^6.3.0",
+    "typescript": "^5"
+  }
+}
