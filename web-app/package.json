@@ -1,14 +1,14 @@
 {
   "name": "web-app",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:gh-pages": "NEXT_PUBLIC_BASE_PATH=/set-seer next build",
-    "deploy": "npm run build:gh-pages && gh-pages -d out -t"
+    "build:gh-pages": "NEXT_PUBLIC_BASE_PATH=/set-seer NEXT_PUBLIC_COMMIT_HASH=$(git rev-parse --short HEAD) NEXT_PUBLIC_BUILD_TIME=$(date -u +'%Y-%m-%dT%H:%M:%SZ') next build",
+    "deploy": "echo \"Deploying release $(git rev-parse --short HEAD)...\" && npm run build:gh-pages && gh-pages -d out -t"
   },
   "dependencies": {
     "next": "16.1.6",

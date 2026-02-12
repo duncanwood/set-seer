@@ -177,6 +177,18 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
+.hud-version {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  opacity: 0.6;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  font-family: 'SF Mono', 'Roboto Mono', monospace;
+  letter-spacing: -0.02em;
+}
+
 .hud-stats {
   flex: 1;
   display: flex;

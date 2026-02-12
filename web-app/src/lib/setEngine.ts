@@ -62,9 +62,9 @@ export function parseDetection(detection: Detection): SetCard | null {
 
 /**
  * Compute a unique signature for a card based on its features.
- * Used as a hash key for O(n²) set-finding.
+ * Used as a hash key for O(n²) set-finding and for stable sorting.
  */
-function cardSignature(card: SetCard): string {
+export function cardSignature(card: SetCard): string {
   return `${card.number}-${card.color}-${card.shading}-${card.shape}`;
 }
 
@@ -123,10 +123,12 @@ export function findSets(cards: SetCard[]): SetResult[] {
           if (foundSetIds.has(setSignature)) continue;
 
           foundSetIds.add(setSignature);
+          // Stable color index based on hash (prevents swapping)
+          const setHash = setSignature.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
           results.push({
             id: `set-${results.length}`,
             cards: [a, b, c],
-            colorIndex: results.length,
+            colorIndex: setHash,
           });
         }
       }
@@ -145,5 +147,20 @@ export function findSetsFromDetections(detections: Detection[]): {
 } {
   const cards = detections.map(parseDetection).filter((c): c is SetCard => c !== null);
   const sets = findSets(cards);
+
+  // ─── Stable Sorting ───
+
+  // 1. Sort cards within each set
+  sets.forEach((set) => {
+    set.cards.sort((a, b) => cardSignature(a).localeCompare(cardSignature(b)));
+  });
+
+  // 2. Sort the list of sets based on the signature of their first card
+  sets.sort((a, b) => {
+    const sigA = cardSignature(a.cards[0]);
+    const sigB = cardSignature(b.cards[0]);
+    return sigA.localeCompare(sigB);
+  });
+
   return { cards, sets };
 }

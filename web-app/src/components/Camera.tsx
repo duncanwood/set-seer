@@ -12,6 +12,7 @@ import { loadModel, runInference } from '@/lib/yolo';
 import { findSetsFromDetections } from '@/lib/setEngine';
 import type { Detection, SetCard, SetResult, InferenceConfig } from '@/types';
 import { DEFAULT_INFERENCE_CONFIG } from '@/types';
+import { APP_VERSION, COMMIT_HASH, BUILD_TIME } from '@/lib/constants';
 
 // ─── Color palette for Set visualization ────────────────────────────────────
 
@@ -54,10 +55,12 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
 
   // Refs for the animation loop (avoids stale closures)
   const fpsRef = useRef(fps);
+  const showSetsRef = useRef(showSets);
   const configRef = useRef<InferenceConfig>(DEFAULT_INFERENCE_CONFIG);
   const isProcessingRef = useRef(false);
 
   useEffect(() => { fpsRef.current = fps; }, [fps]);
+  useEffect(() => { showSetsRef.current = showSets; }, [showSets]);
 
   // ── Load model on mount ──
   useEffect(() => {
@@ -109,7 +112,7 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
       setInferenceTime(Math.round(t1 - t0));
 
       // Draw overlays
-      drawOverlay(dets, parsedCards, foundSets, video);
+      drawOverlay(dets, parsedCards, foundSets, video, showSetsRef.current);
     } catch (err) {
       console.error('[SetSeer] Inference error:', err);
     }
@@ -131,7 +134,8 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
       dets: Detection[],
       currentCards: SetCard[],
       currentSets: SetResult[],
-      video: HTMLVideoElement
+      video: HTMLVideoElement,
+      shouldShowSets: boolean
     ) => {
       const canvas = overlayRef.current;
       if (!canvas) return;
@@ -139,15 +143,20 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      // Match canvas to displayed video size
+      // Handle High DPI screens
+      const dpr = window.devicePixelRatio || 1;
       const rect = video.getBoundingClientRect();
-      canvas.width = rect.width;
-      canvas.height = rect.height;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Set physical pixel size
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
 
-      const w = canvas.width;
-      const h = canvas.height;
+      // Scale context to match logical pixels
+      ctx.scale(dpr, dpr);
+
+      // Use logical dimensions for coordinate calculation
+      const w = rect.width;
+      const h = rect.height;
 
       for (const det of dets) {
         const x = det.boundingBox.x * w;
@@ -155,7 +164,7 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
         const bw = det.boundingBox.width * w;
         const bh = det.boundingBox.height * h;
 
-        if (showSets) {
+        if (shouldShowSets) {
           // Find which sets this detection belongs to
           const participating = currentSets.filter((s) =>
             s.cards.some((c) => c.id === det.id)
@@ -164,6 +173,8 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
           if (participating.length > 0) {
             for (let si = 0; si < participating.length; si++) {
               const expansion = si * 6;
+// ... (rest of loop content implicitly preserved if not matched?)
+// Wait, I need to match the block correctly. I will replace the condition start.
               const color = SET_COLORS[participating[si].colorIndex % SET_COLORS.length];
 
               ctx.strokeStyle = color;
@@ -185,9 +196,9 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
               );
             }
           } else {
-            // Not in any set — dim border
-            ctx.strokeStyle = 'rgba(200, 200, 200, 0.4)';
-            ctx.lineWidth = 1;
+            // Not in any set — transparent grey border
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 1.5;
             ctx.strokeRect(x, y, bw, bh);
           }
         } else {
@@ -215,13 +226,13 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
         }
       }
     },
-    [showSets]
+    []
   );
 
   // Redraw when showSets changes
   useEffect(() => {
     if (webcamRef.current?.video) {
-      drawOverlay(detections, cards, sets, webcamRef.current.video);
+      drawOverlay(detections, cards, sets, webcamRef.current.video, showSets);
     }
   }, [showSets, detections, cards, sets, drawOverlay]);
 
@@ -270,6 +281,10 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
             <div className="hud-badge">
               <span className="hud-badge-label">Sets</span>
               <span className="hud-badge-value">{sets.length}</span>
+            </div>
+
+            <div className="hud-version" title={`Built: ${BUILD_TIME}`}>
+              v{APP_VERSION} <span style={{ opacity: 0.6 }}>#{COMMIT_HASH}</span>
             </div>
 
             <div className="hud-stats">
@@ -330,7 +345,7 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
                     style={{ backgroundColor: SET_COLORS[s.colorIndex % SET_COLORS.length] }}
                   />
                   <span className="set-legend-text">
-                    {s.cards.map((c) => formatLabel(c.number + '-' + c.color + '-' + c.shape)).join(', ')}
+                    {s.cards.map((c) => formatLabel(`${c.number}-${c.color}-${c.shading}-${c.shape}`)).join(', ')}
                   </span>
                 </div>
               ))}
