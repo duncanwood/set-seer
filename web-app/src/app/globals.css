@@ -206,6 +206,12 @@ html, body {
   font-variant-numeric: tabular-nums;
 }
 
+.hud-debug-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .hud-dot {
   opacity: 0.4;
 }
@@ -242,6 +248,32 @@ html, body {
   border-color: var(--accent);
 }
 
+.hud-btn-sets {
+  background: var(--accent);
+  color: #0a0a0f;
+  border-color: var(--accent);
+}
+
+/* Base state for "Show Sets" (green) */
+.hud-btn-sets:not(.hud-btn-active) {
+  background: var(--accent); 
+  color: #0a0a0f;
+  opacity: 0.9;
+}
+
+/* Active state for "Hide Sets" (also green, maybe slightly different) */
+.hud-btn-sets.hud-btn-active {
+  background: #00dd77;
+}
+
+/* No Sets state (Red) */
+.hud-btn-sets.hud-btn-no-sets {
+  background: var(--danger) !important;
+  border-color: var(--danger) !important;
+  color: #fff !important;
+  opacity: 1;
+}
+
 .hud-btn-active:active {
   background: #00dd77;
 }
@@ -257,6 +289,20 @@ html, body {
   flex-shrink: 0;
 }
 
+.hud-btn-debug {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hud-btn-debug:hover,
+.hud-btn-debug.hud-btn-active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+
 /* ─── HUD Bottom ─────────────────────────────────────────────────────────── */
 
 .hud-bottom {
@@ -267,53 +313,7 @@ html, body {
   padding-bottom: 12px;
 }
 
-/* ─── FPS Control ────────────────────────────────────────────────────────── */
 
-.fps-control {
-  position: absolute;
-  bottom: 72px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 200px;
-}
-
-.fps-control label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text);
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-  min-width: 52px;
-}
-
-.fps-control input[type="range"] {
-  flex: 1;
-  height: 4px;
-  -webkit-appearance: none;
-  appearance: none;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-  outline: none;
-}
-
-.fps-control input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--accent);
-  cursor: pointer;
-  border: 2px solid var(--bg);
-}
 
 /* ─── Set Legend ──────────────────────────────────────────────────────────── */
 

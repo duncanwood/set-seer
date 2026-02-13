@@ -44,8 +44,8 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
   const [modelError, setModelError] = useState<string | null>(null);
   const [facingMode, setFacingMode] = useState<'environment' | 'user'>('environment');
   const [showSets, setShowSets] = useState(false);
-  const [fps, setFps] = useState(targetFps);
-  const [showFpsControl, setShowFpsControl] = useState(false);
+  const [debugMode, setDebugMode] = useState(false);
+  const [fps] = useState(targetFps);
 
   // Detection state
   const [detections, setDetections] = useState<Detection[]>([]);
@@ -211,30 +211,32 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
           ctx.fillStyle = 'rgba(0, 255, 136, 0.08)';
           ctx.fillRect(x, y, bw, bh);
 
-          // Label
-          const label = `${formatLabel(det.className)} ${Math.round(det.confidence * 100)}%`;
-          ctx.font = 'bold 11px Inter, system-ui, sans-serif';
-          const metrics = ctx.measureText(label);
-          const labelH = 18;
-          const labelY = y > labelH + 4 ? y - labelH - 2 : y + bh + 2;
+          // Label only in debug mode
+          if (debugMode) {
+            const label = `${formatLabel(det.className)} ${Math.round(det.confidence * 100)}%`;
+            ctx.font = 'bold 11px Inter, system-ui, sans-serif';
+            const metrics = ctx.measureText(label);
+            const labelH = 18;
+            const labelY = y > labelH + 4 ? y - labelH - 2 : y + bh + 2;
 
-          ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
-          ctx.fillRect(x, labelY, metrics.width + 8, labelH);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+            ctx.fillRect(x, labelY, metrics.width + 8, labelH);
 
-          ctx.fillStyle = '#00FF88';
-          ctx.fillText(label, x + 4, labelY + 13);
+            ctx.fillStyle = '#00FF88';
+            ctx.fillText(label, x + 4, labelY + 13);
+          }
         }
       }
     },
     []
   );
 
-  // Redraw when showSets changes
+  // Redraw when showSets or debugMode changes
   useEffect(() => {
     if (webcamRef.current?.video) {
       drawOverlay(detections, cards, sets, webcamRef.current.video, showSets);
     }
-  }, [showSets, detections, cards, sets, drawOverlay]);
+  }, [showSets, debugMode, detections, cards, sets, drawOverlay]);
 
   const toggleCamera = () => {
     setFacingMode((prev) => (prev === 'environment' ? 'user' : 'environment'));
@@ -278,61 +280,49 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
         <div className="hud">
           {/* Top bar */}
           <div className="hud-top">
-            <div className="hud-badge">
-              <span className="hud-badge-label">Sets</span>
-              <span className="hud-badge-value">{sets.length}</span>
-            </div>
-
-            <div className="hud-version" title={`Built: ${BUILD_TIME}`}>
-              v{APP_VERSION} <span style={{ opacity: 0.6 }}>#{COMMIT_HASH}</span>
-            </div>
-
-            <div className="hud-stats">
-              <span>{detections.length} cards</span>
-              <span className="hud-dot">·</span>
-              <span>{inferenceTime}ms</span>
-            </div>
-
             <button
-              className={`hud-btn ${showSets ? 'hud-btn-active' : ''}`}
+              className={`hud-btn hud-btn-sets ${showSets ? 'hud-btn-active' : ''} ${
+                sets.length === 0 ? 'hud-btn-no-sets' : ''
+              }`}
               onClick={() => setShowSets(!showSets)}
             >
-              {showSets ? 'Hide Sets' : 'Show Sets'}
+              {sets.length > 0 ? (showSets ? 'Hide Sets' : 'Show Sets') : 'No Sets!'}
             </button>
+
+            {debugMode && (
+              <div className="hud-debug-group">
+                 <div className="hud-version" title={`Built: ${BUILD_TIME}`}>
+                  v{APP_VERSION} <span style={{ opacity: 0.6 }}>#{COMMIT_HASH}</span>
+                </div>
+                <div className="hud-stats">
+                  <span>{detections.length} cards</span>
+                  <span className="hud-dot">·</span>
+                  <span>{inferenceTime}ms</span>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Bottom controls */}
           <div className="hud-bottom">
             <button className="hud-btn hud-btn-icon" onClick={toggleCamera} title="Switch camera">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M16 3H8l-2 3H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3l-2-3z" />
-                <circle cx="12" cy="13" r="4" />
-              </svg>
+               <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                <path d="M21 21v-5h-5" />
+               </svg>
             </button>
 
             <button
-              className="hud-btn hud-btn-icon"
-              onClick={() => setShowFpsControl(!showFpsControl)}
-              title="FPS settings"
+              className={`hud-btn hud-btn-icon hud-btn-debug ${debugMode ? 'hud-btn-active' : ''}`}
+              onClick={() => setDebugMode(!debugMode)}
+              title="Debug Mode"
             >
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
               </svg>
             </button>
-
-            {showFpsControl && (
-              <div className="fps-control">
-                <label>FPS: {fps}</label>
-                <input
-                  type="range"
-                  min="1"
-                  max="30"
-                  value={fps}
-                  onChange={(e) => setFps(Number(e.target.value))}
-                />
-              </div>
-            )}
           </div>
 
           {/* Set legend when showing sets */}

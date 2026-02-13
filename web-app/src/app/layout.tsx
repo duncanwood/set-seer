@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Set Seer — Real-Time Set Card Detector',
+  title: 'SET Seer',
   description:
     'Point your camera at Set cards and instantly find valid Sets. Runs entirely in-browser using a custom YOLOv8 model.',
   manifest: '/manifest.json',

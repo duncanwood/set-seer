@@ -21,17 +21,22 @@ Set Seer is designed to be a quick, definitive judge during gameplay. It operate
 
 ### 1. Default Mode (The Judge)
 When you first open the app, it acts as an impartial observer. Point your camera at the cards on the table.
--   **What you see**: Green bounding boxes around every card the AI detects.
--   **What it tells you**: A simple counter at the top: **"Sets: X"**.
--   **Why use it**: This is for when the group is stuck. If the counter says "Sets: 0", you can confidently deal more cards without spoiling anything. If it says "Sets: 1" (or more), you know a set exists, and the group can keep searching with the reassurance that a solution is possible.
+-   **What you see**: Green bounding boxes around every detected card. No reading required.
+-   **The Verdict**: Look at the button in the top bar.
+    -   **Green "Show Sets"**: A set exists! The group can keep searching with the reassurance that a solution is possible.
+    -   **Red "No Sets!"**: No sets are currently visible. You can confidently deal more cards.
 
 ### 2. Show Sets Mode (The Spoiler)
-If you've given up or just want to see the solution, tap the **"Show Sets"** button.
+If you've given up or just want to see the solution, tap the **Green "Show Sets"** button.
 -   **What you see**: The green boxes disappear. Instead, specific sets are highlighted with distinct colors.
 -   **How it works**:
     -   Cards belonging to the same set share a unique border color (e.g., all cards in Set A are red, all in Set B are blue).
-    -   If a single card belongs to multiple valid sets, it will have multiple concentric borders, one for each set it belongs to.
-    -   Cards that are not part of any set are dimmed or outlined in grey.
+    -   If a single card belongs to multiple valid sets, it will have multiple concentric borders.
+
+### 3. Debug Mode
+Tap the **Wrench icon** in the bottom right corner to enable Debug Mode.
+-   **What you see**: Detailed card labels (Color, Shape, Count, Shading), confidence percentages, and performance stats (Inference Time).
+-   **Use case**: Helpful for understanding why the AI might be misidentifying a card.
 
 ## Technical Details
 
