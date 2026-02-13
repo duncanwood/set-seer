@@ -10,6 +10,7 @@ import React, { useRef, useCallback, useEffect, useState } from 'react';
 import Webcam from 'react-webcam';
 import { loadModel, runInference } from '@/lib/yolo';
 import { findSetsFromDetections } from '@/lib/setEngine';
+import { TemporalTracker } from '@/lib/temporalTracker';
 import type { Detection, SetCard, SetResult, InferenceConfig } from '@/types';
 import { DEFAULT_INFERENCE_CONFIG } from '@/types';
 import { APP_VERSION, COMMIT_HASH, BUILD_TIME } from '@/lib/constants';
@@ -52,6 +53,9 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
   const [sets, setSets] = useState<SetResult[]>([]);
   const [cards, setCards] = useState<SetCard[]>([]);
   const [inferenceTime, setInferenceTime] = useState<number>(0);
+
+  // Temporal tracker for smoothing and stabilization
+  const trackerRef = useRef<TemporalTracker>(new TemporalTracker());
 
   // Refs for the animation loop (avoids stale closures)
   const fpsRef = useRef(fps);
@@ -101,18 +105,18 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
       }
 
       const t0 = performance.now();
-      const dets = await runInference(video, configRef.current);
+      const rawDets = await runInference(video, configRef.current);
       const t1 = performance.now();
 
-      const { cards: parsedCards, sets: foundSets } = findSetsFromDetections(dets);
+      // Apply temporal tracking and smoothing
+      const stableDets = trackerRef.current.update(rawDets);
 
-      setDetections(dets);
+      const { cards: parsedCards, sets: foundSets } = findSetsFromDetections(stableDets);
+
+      setDetections(stableDets);
       setCards(parsedCards);
       setSets(foundSets);
       setInferenceTime(Math.round(t1 - t0));
-
-      // Draw overlays
-      drawOverlay(dets, parsedCards, foundSets, video, showSetsRef.current);
     } catch (err) {
       console.error('[SetSeer] Inference error:', err);
     }
@@ -148,10 +152,16 @@ export default function Camera({ targetFps = 15 }: CameraProps) {
       const rect = video.getBoundingClientRect();
 
       // Set physical pixel size
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      if (canvas.width !== rect.width * dpr || canvas.height !== rect.height * dpr) {
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+      }
 
-      // Scale context to match logical pixels
+      // Clear the canvas explicitly
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Reset and apply scale (resizing box resets context state)
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.scale(dpr, dpr);
 
       // Use logical dimensions for coordinate calculation
