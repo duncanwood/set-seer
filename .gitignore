@@ -2,3 +2,4 @@ model-dev/data/*
 model-dev/debug_runs/*
 set-seer-runs/*
 .DS_Store
+SetSeer/SetSeer.xcodeproj/project.xcworkspace/xcuserdata/duncan.xcuserdatad/UserInterfaceState.xcuserstate
