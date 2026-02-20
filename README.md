@@ -3,9 +3,9 @@
 https://duncanwood.github.io/set-seer/
 
 <!-- predictable-intro-start -->
-In my family, there was one game to rule them all: **Set**. 
+In my family, there was one game to rule them all: **SET**. 
 
-There's something beautiful in the simplicity and honesty of the simple ruleset. 
+There's something beautiful in the simplicity and honesty of the ruleset. 
 But there's one inevitable moment where a judgment call is required: 
 sometimes there really is no SET in play. 
 
